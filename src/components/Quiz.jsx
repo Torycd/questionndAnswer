@@ -5,22 +5,41 @@ import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 
 const Quiz = () => {
+  const [answerState, setAnswerState] = useState("");
   const [userAnswers, setUserAnswer] = useState([]);
 
-  const activeQuestionIndex = userAnswers.length;
+  const activeQuestionIndex =
+    answerState === "" ? userAnswers.length : userAnswers.length - 1;
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer) {
-    setUserAnswer((prevUserAnswer) => {
-      return [...prevUserAnswer, selectedAnswer];
-    });
-  }, [])
+  const handleSelectAnswer = useCallback(
+    function handleSelectAnswer(selectedAnswer) {
+      setAnswerState("answer");
+      setUserAnswer((prevUserAnswer) => {
+        return [...prevUserAnswer, selectedAnswer];
+      });
+
+      setTimeout(() => {
+        if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
+          setAnswerState("correct");
+        } else {
+          selectedAnswer("wrong");
+        }
+
+        setTimeout(() => {
+          setAnswerState('')
+        }, 2000)
+      }, 1000);
+    },
+    [activeQuestionIndex]
+  );
 
   const handleSkipAnswer = useCallback(
     () => handleSelectAnswer(null),
+    [handleSelectAnswer],
     [handleSelectAnswer]
-  , [handleSelectAnswer]);
+  );
 
   if (quizIsComplete) {
     return (
@@ -36,6 +55,7 @@ const Quiz = () => {
     <div id="quiz">
       <div id="question">
         <QuestionTimer
+          key={activeQuestionIndex}
           timeout={10000}
           onTimeout={handleSkipAnswer}
         />
