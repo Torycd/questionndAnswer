@@ -28,8 +28,8 @@ const Quiz = () => {
         }
 
         setTimeout(() => {
-          setAnswerState('')
-        }, 2000)
+          setAnswerState("");
+        }, 2000);
       }, 1000);
     },
     [activeQuestionIndex]
@@ -61,13 +61,17 @@ const Quiz = () => {
         />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
-          {shuffledAnswers.map((answer) => (
-            <li key={answer} className="answer">
-              <button onClick={() => handleSelectAnswer(answer)}>
-                {answer}
-              </button>
-            </li>
-          ))}
+          {shuffledAnswers.map((answer) => {
+            let cssClasses = "";
+            if (answerState === "answered"){}
+            return (
+              <li key={answer} className="answer">
+                <button onClick={() => handleSelectAnswer(answer)}>
+                  {answer}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
