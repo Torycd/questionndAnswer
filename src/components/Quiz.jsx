@@ -39,6 +39,7 @@ const Quiz = () => {
     <div id="quiz">
       <Question
         key={activeQuestionIndex}
+        index={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
         onSkipAnswer={handleSkipAnswer}
       />
