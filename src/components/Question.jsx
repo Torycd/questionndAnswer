@@ -5,6 +5,7 @@ import Answers from "./Answers";
 import QUESTIONS from "../questions.js";
 
 const Question = ({ index, onSelectAnswer, onSkipAnswer }) => {
+  // this picks my answers and 
   const [answer, setAnswer] = useState({
     selectedAnswer: "",
     isCorrect: null,

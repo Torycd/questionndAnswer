@@ -4,7 +4,6 @@ import Summary from "./Summary.jsx";
 import QUESTIONS from "../questions.js";
 import Question from "./Question.jsx";
 
-
 const Quiz = () => {
   const [userAnswers, setUserAnswer] = useState([]);
 
@@ -23,14 +22,11 @@ const Quiz = () => {
 
   const handleSkipAnswer = useCallback(
     () => handleSelectAnswer(null),
-    [handleSelectAnswer],
     [handleSelectAnswer]
   );
 
   if (quizIsComplete) {
-    return (
-      <Summary userAnswers={userAnswers} />
-    );
+    return <Summary userAnswers={userAnswers} />;
   }
 
   return (
