@@ -5,7 +5,6 @@ import Answers from "./Answers";
 import QUESTIONS from "../questions.js";
 
 const Question = ({ index, onSelectAnswer, onSkipAnswer }) => {
-  // this picks my answers and 
   const [answer, setAnswer] = useState({
     selectedAnswer: "",
     isCorrect: null,
@@ -19,16 +18,16 @@ const Question = ({ index, onSelectAnswer, onSkipAnswer }) => {
     timer = 2000;
   }
 
-  function handleSelectAnswer() {
+  function handleSelectAnswer(answer) {
     setAnswer({
       selectedAnswer: answer,
-      isCorrect: QUESTIONS[index].answers[0] === answer,
+      isCorrect: null,
     });
 
     setTimeout(() => {
       setAnswer({
         selectedAnswer: answer,
-        isCorrect: true,
+        isCorrect: QUESTIONS[index].answers[0] === answer,
       });
 
       setTimeout(() => {
@@ -46,9 +45,9 @@ const Question = ({ index, onSelectAnswer, onSkipAnswer }) => {
   return (
     <div id="question">
       <QuestionTimer
-      key={timer}
+        key={timer}
         timeout={timer}
-        onTimeout={answer.selectedAnswer === "" ? onSkipAnswer: null}
+        onTimeout={answer.selectedAnswer === "" ?  onSkipAnswer : null}
         mode={answerState}
       />
       <h2>{QUESTIONS[index].text}</h2>
